@@ -1,7 +1,9 @@
-package cn.ucai.fulicenters;
+package cn.ucai.fulicenters.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import cn.ucai.fulicenters.R;
 
 public class MainActivity extends AppCompatActivity {
 
