@@ -8,7 +8,7 @@ import java.util.List;
 public class GoodsDetailsBean {
 
     /**
-     * id : 280
+     * id : 280 
      * goodsId : 7677
      * catId : 291
      * goodsName : 双层分格饭盒 绿色
