@@ -1,6 +1,7 @@
 package cn.ucai.fulicenters.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.View;
@@ -14,6 +15,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.ucai.fulicenters.GoodsDeatilActivity;
 import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.bean.NewGoodsBean;
@@ -64,6 +67,7 @@ public class GoodsAdapter extends Adapter {
             ImageLoader.downloadImg(mcontext,vh.mIvGoodsThumb,goods.getGoodsThumb());
             vh.mIvGoodsName.setText(goods.getGoodsName());
             vh.mTvGoodsPrice.setText(goods.getCurrencyPrice());
+            vh.mLayoutGoods.setTag(goods.getGoodsId());
 
         }
 
@@ -99,7 +103,7 @@ public class GoodsAdapter extends Adapter {
         notifyDataSetChanged();
     }
 
-    static class GoodsViewHolder extends ViewHolder{
+    class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView mIvGoodsThumb;
         @BindView(R.id.ivGoodsName)
@@ -112,6 +116,12 @@ public class GoodsAdapter extends Adapter {
         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.layout_goods)
+        public void onGoodsItmenClick(){
+            int goodsId= (int) mLayoutGoods.getTag();
+            mcontext.startActivity(new Intent(mcontext, GoodsDeatilActivity.class)
+                    .putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId));
         }
     }
 
