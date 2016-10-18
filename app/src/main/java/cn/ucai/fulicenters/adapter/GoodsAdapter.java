@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,10 +25,21 @@ import cn.ucai.fulicenters.utils.ImageLoader;
 public class GoodsAdapter extends Adapter {
     Context mcontext;
     List<NewGoodsBean> mList;
+    boolean isMore;
 
-    public GoodsAdapter(Context context, List<NewGoodsBean> List) {
+    public GoodsAdapter(Context context, List<NewGoodsBean> list) {
         mcontext = context;
-        mList = List;
+        mList=new ArrayList<>();
+        mList.addAll(list);
+    }
+
+    public boolean isMore() {
+        return isMore;
+    }
+
+    public void setMore(boolean more) {
+        isMore = more;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -44,16 +56,21 @@ public class GoodsAdapter extends Adapter {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (getItemViewType(position)==I.TYPE_FOOTER){
-
+                FooterViewHolder vh= (FooterViewHolder) holder;
+            vh.mTvFooter.setText(getFootString());
         }else {
             GoodsViewHolder vh=(GoodsViewHolder)holder;
             NewGoodsBean goods=mList.get(position);
-            ImageLoader.downloadImg(mcontext,mIvGoodsThumb,goods.getGoodsThumb());
-            vh.ivGoodsName.setText(goods.getGoodsName());
-            vh.tvGoodsPrice.setText(goods.getCurrencyPrice());
+            ImageLoader.downloadImg(mcontext,vh.mIvGoodsThumb,goods.getGoodsThumb());
+            vh.mIvGoodsName.setText(goods.getGoodsName());
+            vh.mTvGoodsPrice.setText(goods.getCurrencyPrice());
 
         }
 
+    }
+
+    private int getFootString() {
+        return isMore?R.string.load_more:R.string.no_more;
     }
 
     @Override
@@ -69,15 +86,23 @@ public class GoodsAdapter extends Adapter {
         return I.TYPE_ITEM;
     }
 
+    public void initData(ArrayList<NewGoodsBean> list) {
+        if (mList!=null){
+            mList.clear();
+        }
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
     static class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
-        ImageView ivGoodsThumb;
+        ImageView mIvGoodsThumb;
         @BindView(R.id.ivGoodsName)
-        TextView ivGoodsName;
+        TextView mIvGoodsName;
         @BindView(R.id.tvGoodsPrice)
-        TextView tvGoodsPrice;
+        TextView mTvGoodsPrice;
         @BindView(R.id.layout_goods)
-        LinearLayout layoutGoods;
+        LinearLayout mLayoutGoods;
 
         GoodsViewHolder(View view) {
             super(view);
@@ -87,7 +112,7 @@ public class GoodsAdapter extends Adapter {
 
     static class FooterViewHolder extends ViewHolder{
         @BindView(R.id.tvFooter)
-        TextView tvFooter;
+        TextView mTvFooter;
 
         FooterViewHolder(View view) {
             super(view);

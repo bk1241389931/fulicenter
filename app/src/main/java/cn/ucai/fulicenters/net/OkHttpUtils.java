@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 import cn.ucai.fulicenters.FuLiCenterApplication;
 import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.bean.Result;
-import cn.ucai.fulicenters.FuLiCenterApplication;
 import cn.ucai.fulicenters.utils.L;
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -146,7 +145,7 @@ public class OkHttpUtils<T> {
 
 
     private void initHandler() {
-        mHandler = new Handler(FuLiCenterApplication.getInstance().getMainLooper()) {
+        mHandler = new Handler(FuLiCenterApplication.application.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -353,7 +352,7 @@ public class OkHttpUtils<T> {
                     mHandler.sendMessage(msg);
                 }else {
                     Gson gson = new Gson();
-                    T value = gson.fromJson(json, mClazz);
+                    T value = gson.fromJson(json,mClazz);
                     Message msg = Message.obtain();
                     msg.what = RESULT_SUCCESS;
                     msg.obj = value;

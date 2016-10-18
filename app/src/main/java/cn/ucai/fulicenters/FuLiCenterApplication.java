@@ -6,9 +6,12 @@ import android.app.Application;
  * Created by bk124 on 2016/10/18.
  */
 public class FuLiCenterApplication extends Application {
+    public static FuLiCenterApplication application;
     private static FuLiCenterApplication instance;
 
-    public FuLiCenterApplication(){
+    public void onCreate(){
+        super.onCreate();
+        application=this;
         instance=this;
     }
 
