@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import cn.ucai.fulicenters.I;
+import cn.ucai.fulicenters.bean.BoutiqueBean;
 import cn.ucai.fulicenters.bean.GoodsDetailsBean;
 import cn.ucai.fulicenters.bean.NewGoodsBean;
 
@@ -26,5 +27,12 @@ public class NetDao {
                 .addParam(I.GoodsDetails.KEY_GOODS_ID,String.valueOf(goodsId))
                 .targetClass(GoodsDetailsBean.class)
                 .execute(listener);
+    }
+    public static void downloadBoutique(Context context, OkHttpUtils.OnCompleteListener<BoutiqueBean[]>listener){
+        OkHttpUtils utils=new OkHttpUtils(context);
+        utils.setRequestUrl(I.REQUEST_FIND_BOUTIQUES)
+                .targetClass(BoutiqueBean[].class)
+                .execute(listener);
+
     }
 }

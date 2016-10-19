@@ -93,7 +93,6 @@ public class NewGoodsFragment extends Fragment {
                     }else {
                         mAdapter.addData(list);
                     }
-                    mAdapter.initData(list);
                     if (list.size()<I.PAGE_SIZE_DEFAULT){
                         mAdapter.setMore(false);
                     }
