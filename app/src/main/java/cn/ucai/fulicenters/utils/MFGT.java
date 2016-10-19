@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import cn.ucai.fulicenters.GoodsDeatilActivity;
+import cn.ucai.fulicenters.activity.GoodsDeatilActivity;
 import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.activity.MainActivity;
