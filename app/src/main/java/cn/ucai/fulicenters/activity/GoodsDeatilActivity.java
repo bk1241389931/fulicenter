@@ -22,7 +22,7 @@ import cn.ucai.fulicenters.utils.MFGT;
 import cn.ucai.fulicenters.view.FlowIndicator;
 import cn.ucai.fulicenters.view.SlideAutoLoopView;
 
-public class GoodsDeatilActivity extends AppCompatActivity {
+public class GoodsDeatilActivity extends BaseActivity {
 
     @BindView(R.id.backClickArea)
     LinearLayout backClickArea;
@@ -46,25 +46,28 @@ public class GoodsDeatilActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_deatil);
         ButterKnife.bind(this);
+        super.onCreate(savedInstanceState);
         goodsId = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
         L.e("detafls", "goodsId" + goodsId);
         if (goodsId==0){
             finish();
         }
         mContext=this;
-        initVew();
-        initData();
-        setListener();
+        super.onCreate(savedInstanceState);
     }
 
-    private void setListener() {
+
+
+
+    @Override
+    protected void setListener() {
 
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         NetDao.downloadGoodsDetail(mContext, goodsId, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
@@ -113,7 +116,8 @@ public class GoodsDeatilActivity extends AppCompatActivity {
             return urls;
     }
 
-    private void initVew() {
+    @Override
+    protected void initView() {
 
     }
     @OnClick(R.id.backClickArea)
