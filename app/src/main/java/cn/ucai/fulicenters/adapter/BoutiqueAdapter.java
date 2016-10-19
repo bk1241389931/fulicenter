@@ -54,7 +54,7 @@ public class BoutiqueAdapter extends Adapter {
             holder = new BoutiqueViewHolder(LayoutInflater.from(mcontext)
                     .inflate(R.layout.item_boutique, parent, false));
         }
-        return null;
+        return holder;
     }
 
     @Override
