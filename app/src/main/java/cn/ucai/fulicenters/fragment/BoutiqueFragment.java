@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.activity.MainActivity;
 import cn.ucai.fulicenters.adapter.BoutiqueAdapter;
@@ -46,43 +44,51 @@ public class BoutiqueFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContext= (MainActivity) getContext();
+        mList=new ArrayList<>();
         mAdapter=new BoutiqueAdapter(mContext,mList);
         initView();
         initData();
+        setListener();
         return layout;
     }
 
-    private void initData() {
-        downloadBoutique(I.ACTION_DOWNLOAD);
+    private void setListener() {
+        setPullDownListener();
     }
 
-    private void downloadBoutique(final int action) {
+    private void setPullDownListener() {
+        mSrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSrl.setRefreshing(true);
+                mTvRefresh.setVisibility(View.VISIBLE);
+                downloadBoutique();
+            }
+        });
+    }
+
+    private void initData() {
+        downloadBoutique();
+    }
+
+    private void downloadBoutique() {
         NetDao.downloadBoutique(mContext, new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(true);
                 L.e("result" + result);
                 if (result != null && result.length > 0) {
                     ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
-                    if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
-                        mAdapter.initData(list);
-                    } else {
-                        mAdapter.addData(list);
-                    }
-                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
-                        mAdapter.setMore(false);
-                    }
-                } else mAdapter.setMore(false);
+                    mAdapter.initData(list);
+                }
             }
 
             @Override
             public void onError(String error) {
                 mSrl.setRefreshing(false);
                 mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(false);
-                CommonUtils.showLongToast(error);
+                CommonUtils.showShortToast(error);
                 L.e("error" + error);
             }
         });
