@@ -19,6 +19,7 @@ import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.bean.BoutiqueBean;
 import cn.ucai.fulicenters.utils.ImageLoader;
+import cn.ucai.fulicenters.view.FooterViewHolder;
 
 /**
  * Created by bk124 on 2016/10/19.
@@ -47,7 +48,7 @@ public class BoutiqueAdapter extends Adapter {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder holder = null;
         if (viewType == I.TYPE_FOOTER) {
-            holder = new GoodsAdapter.FooterViewHolder(LayoutInflater.from(mcontext)
+            holder = new FooterViewHolder(LayoutInflater.from(mcontext)
                     .inflate(R.layout.item_footer, parent, false));
         } else {
             holder = new BoutiqueViewHolder(LayoutInflater.from(mcontext)
@@ -58,8 +59,8 @@ public class BoutiqueAdapter extends Adapter {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (holder instanceof GoodsAdapter.FooterViewHolder){
-            ((GoodsAdapter.FooterViewHolder) holder).mTvFooter.setText(getFooteString());
+        if (holder instanceof FooterViewHolder){
+            ((FooterViewHolder) holder).mTvFooter.setText(getFooteString());
         }
         if (holder instanceof BoutiqueViewHolder){
             BoutiqueBean boutiqueBean=mlist.get(position);
