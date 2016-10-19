@@ -50,14 +50,16 @@ public class NewGoodsFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        super.onCreateView(inflater,container,savedInstanceState);
         L.e("NewGoodsFragment.onCreateView");
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContext=(MainActivity)getContext();
         mlist=new ArrayList<>();
         mAdapter=new GoodsAdapter(mContext,mlist);
-        super.onCreateView(inflater,container,savedInstanceState);
+//        initView();
+//        initData();
+//        setListener();
         return layout;
     }
 
@@ -80,7 +82,7 @@ public class NewGoodsFragment extends BaseFragment {
     }
 
     private void downLoadNewGoods(final int action) {
-        NetDao.downloadNewGoods(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        NetDao.downloadNewGoods(mContext,I.CAT_ID ,pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 mSrl.setRefreshing(false);

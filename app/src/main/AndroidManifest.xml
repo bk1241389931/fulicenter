@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GoodsDeatilActivity" />
-        <activity android:name=".activity.CommonHeadTitleActivity"></activity>
+        <activity android:name=".activity.CommonHeadTitleActivity" />
+        <activity android:name=".activity.BoutlqueChildActivity"></activity>
     </application>
 
 </manifest>
