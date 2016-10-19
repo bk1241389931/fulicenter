@@ -18,6 +18,7 @@ public class AlbumsBean {
     private String imgUrl;
     private String thumbUrl;
 
+
     public int getPid() {
         return pid;
     }
