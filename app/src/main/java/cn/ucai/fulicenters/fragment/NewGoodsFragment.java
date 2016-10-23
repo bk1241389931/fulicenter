@@ -50,7 +50,6 @@ public class NewGoodsFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater,container,savedInstanceState);
         L.e("NewGoodsFragment.onCreateView");
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
@@ -60,6 +59,7 @@ public class NewGoodsFragment extends BaseFragment {
 //        initView();
 //        initData();
 //        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
 

@@ -14,6 +14,7 @@ import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.fragment.BoutiqueFragment;
 import cn.ucai.fulicenters.fragment.NewGoodsFragment;
 import cn.ucai.fulicenters.utils.L;
+import cn.ucai.fulicenters.utils.MFGT;
 
 public class MainActivity extends BaseActivity {
 
@@ -124,5 +125,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void setListener() {
 
+    }
+
+    public void onBackPressed(){
+        finish();
     }
 }

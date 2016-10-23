@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
     protected abstract void initData();
     protected abstract void setListener();
-    public void onBackPressed( ){
+    public void onBackPressed(){
         MFGT.finish(this);
     }
 }

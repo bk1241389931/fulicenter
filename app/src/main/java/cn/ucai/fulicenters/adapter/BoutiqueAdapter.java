@@ -1,7 +1,6 @@
 package cn.ucai.fulicenters.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -50,7 +49,7 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
             holder.mTvBoutiqueTitle.setText(boutiqueBean.getTitle());
             holder.mTvBoutiqueName.setText(boutiqueBean.getName());
             holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
-            holder.mLayoutBoutiqueItem.setTag(boutiqueBean.getId());
+            holder.mLayoutBoutiqueItem.setTag(boutiqueBean);
     }
 
     @Override
@@ -85,8 +84,8 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutiqueViewHolder>
         }
         @OnClick(R.id.layout_boutique_item)
         public void onBoutiqueClick(){
-            int catId= (int) mLayoutBoutiqueItem.getTag();
-            MFGT.gotoBoutlqueChildActivity(mcontext,catId);
+            BoutiqueBean bean = (BoutiqueBean) mLayoutBoutiqueItem.getTag();
+            MFGT.gotoBoutlqueChildActivity(mcontext,bean);
         }
     }
 }
