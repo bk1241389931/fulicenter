@@ -2,7 +2,6 @@ package cn.ucai.fulicenters.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +53,7 @@ public class NewGoodsFragment extends BaseFragment {
         ButterKnife.bind(this, layout);
         mContext=(MainActivity)getContext();
         mlist=new ArrayList<>();
-        mAdapter=new GoodsAdapter(mContext,mlist);
+        mAdapter=new GoodsAdapter(mlist,mContext);
 //        initView();
 //        initData();
 //        setListener();
@@ -91,7 +89,7 @@ public class NewGoodsFragment extends BaseFragment {
                 L.e("result"+result);
                 if (result!=null&&result.length>0){
                     ArrayList<NewGoodsBean> list =ConvertUtils.array2List(result);
-                    if (action==I.ACTION_DOWNLOAD||action==I.ACTION_PULL_DOWN){
+                    if (action==I.ACTION_DOWNLOAD||action== I.ACTION_PULL_DOWN){
                         mAdapter.initData(list);
                     }else {
                         mAdapter.addData(list);

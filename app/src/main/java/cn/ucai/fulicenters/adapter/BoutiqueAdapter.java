@@ -15,12 +15,10 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.bean.BoutiqueBean;
 import cn.ucai.fulicenters.utils.ImageLoader;
 import cn.ucai.fulicenters.utils.MFGT;
-import cn.ucai.fulicenters.view.FooterViewHolder;
 
 /**
  * Created by bk124 on 2016/10/19.
