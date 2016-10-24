@@ -19,6 +19,7 @@ import cn.ucai.fulicenters.net.OkHttpUtils;
 import cn.ucai.fulicenters.utils.CommonUtils;
 import cn.ucai.fulicenters.utils.L;
 import cn.ucai.fulicenters.utils.MFGT;
+import cn.ucai.fulicenters.utils.ResultUtils;
 
 
 public class LoginActivity extends BaseActivity {
@@ -87,9 +88,10 @@ public class LoginActivity extends BaseActivity {
         final ProgressDialog pd = new ProgressDialog(mContext);
         pd.setMessage(getResources().getString(R.string.logining));
         pd.show();
-        NetDao.login(mContext, username, password, new OkHttpUtils.OnCompleteListener<Result>() {
+        NetDao.login(mContext, username, password, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
-            public void onSuccess(Result result) {
+            public void onSuccess(String s) {
+                Result  result=ResultUtils.getResultFromJson(s,User.class);
                 pd.dismiss();
                 L.e(TAG, "result=" + result);
                 if (result == null) {
