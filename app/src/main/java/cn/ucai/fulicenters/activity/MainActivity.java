@@ -14,6 +14,7 @@ import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.fragment.BoutiqueFragment;
 import cn.ucai.fulicenters.fragment.CategoryFragment;
 import cn.ucai.fulicenters.fragment.NewGoodsFragment;
+import cn.ucai.fulicenters.fragment.PersonalCenterFragment;
 import cn.ucai.fulicenters.utils.L;
 import cn.ucai.fulicenters.utils.MFGT;
 
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersonalCenterFragment mPersonalCenterFragment;
 
 
     @Override
@@ -53,9 +55,12 @@ public class MainActivity extends BaseActivity {
         mFragment=new Fragment[5];
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
+        mCategoryFragment=new CategoryFragment();
+        mPersonalCenterFragment=new PersonalCenterFragment();
         mFragment[0]=mNewGoodsFragment;
         mFragment[1]=mBoutiqueFragment;
-        mFragment[3]=mCategoryFragment;
+        mFragment[2]=mCategoryFragment;
+        mFragment[4]=mPersonalCenterFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
