@@ -22,9 +22,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by yao on 2016/5/18.
- */
 public class ImageLoader {
     private static final String UTF_8 = "utf-8";
     private static final int DOWNLOAD_SUCCESS=0;
@@ -63,7 +60,6 @@ public class ImageLoader {
     /**
      * 创建ImageLoader对象
      * @param baseUrl:服务端根地址
-     * @return
      */
     public static ImageLoader build(String baseUrl) {
         return new ImageLoader(baseUrl);
@@ -362,7 +358,7 @@ public class ImageLoader {
     public static String getAvatarUrl(User user) {
         if (user != null){
             String url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + "=" + user.getMuserName()
-                    + I.AND + I.AVATAR_TYPE + "=" + user.getMavatarType() + I.AND + I.AVATAR_SUFFIX
+                    + I.AND + I.AVATAR_TYPE + "=" + user.getMavatarPath() + I.AND + I.AVATAR_SUFFIX
                     + "=" + user.getMavatarSuffix() + I.AND + "width=200&height=200";
         L.e("useravatar" + url);
         return url;

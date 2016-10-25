@@ -11,6 +11,7 @@ import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.activity.LoginActivity;
 import cn.ucai.fulicenters.activity.MainActivity;
 import cn.ucai.fulicenters.activity.RegisterActivity;
+import cn.ucai.fulicenters.activity.UserProfileActivity;
 import cn.ucai.fulicenters.bean.BoutiqueBean;
 
 public class MFGT {
@@ -49,7 +50,9 @@ public class MFGT {
     }
 
     public static void gotoLogin(Activity context) {
-        startActivity(context, LoginActivity.class);
+        Intent intent=new Intent();
+        intent.setClass(context,LoginActivity.class);
+        startActivityForResult(context,intent,I.REQUEST_CODE_LOGIN);
     }
     public static void gotoRegister(Activity context) {
         Intent intent = new Intent();
@@ -60,6 +63,10 @@ public class MFGT {
     public static void startActivityForResult(Activity context, Intent intent, int requestCode) {
         context.startActivityForResult(intent,requestCode);
         context.overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+
+    public static void gotoSettings(Activity context) {
+        startActivity(context, UserProfileActivity.class);
     }
 }
 
