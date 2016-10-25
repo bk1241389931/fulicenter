@@ -1,5 +1,6 @@
 package cn.ucai.fulicenters.activity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenters.FuLiCenterApplication;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.fragment.BoutiqueFragment;
 import cn.ucai.fulicenters.fragment.CategoryFragment;
@@ -140,5 +142,20 @@ public class MainActivity extends BaseActivity {
 
     public void onBackPressed(){
         finish();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (FuLiCenterApplication.getUser()!=null
+                &&){
+            index=4;
+        }
+        setFragment();
+    }
+
+    @Override
+    protected void onApplyThemeResource(int requestCode , int resid, boolean first) {
+        super.onApplyThemeResource(requestCode, resid, first);
     }
 }
