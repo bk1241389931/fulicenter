@@ -26,7 +26,7 @@ public class UserDao {
     public User getUser(String username){
         return DBManager.getInstance().getUser(username);
     }
-    public boolean updatUser(User user){
+    public boolean updateUser(User user){
         return DBManager.getInstance().updateUser(user);
     }
 }

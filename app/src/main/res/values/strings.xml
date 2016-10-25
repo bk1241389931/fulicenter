@@ -7,6 +7,10 @@
     <string name="load_more">load more</string>
     <string name="user_name">User name</string>
     <string name="nickname">NickName</string>
+    <string name="update_user_nick">update user nick</string>
+    <string name="update_fail">update fail</string>
+    <string name="update_nick_fail_unmodify">user nick unmodify</string>
+    <string name="update_user_nick_success">update user nick success</string>
     <string name="password">Password</string>
     <string name="confirmpassword">Confirm Password</string>
     <string name="register">Register</string>
