@@ -148,9 +148,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         L.e(TAG,"onResume...");
+        if (index == 4 && FuLiCenterApplication.getUser() == null) {
+            index=0;
+        }
         setFragment();
     }
 

@@ -28,6 +28,7 @@ import cn.ucai.fulicenters.utils.CommonUtils;
 import cn.ucai.fulicenters.utils.L;
 import cn.ucai.fulicenters.utils.MFGT;
 import cn.ucai.fulicenters.utils.ResultUtils;
+import cn.ucai.fulicenters.view.DisplayUtils;
 
 
 public class LoginActivity extends BaseActivity {
@@ -70,7 +71,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        DisplayUtils.initBackWithTitle(mContext,getResources().getString(R.string.login));
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register})
