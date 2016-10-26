@@ -14,9 +14,14 @@ import butterknife.OnClick;
 import cn.ucai.fulicenters.FuLiCenterApplication;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.activity.MainActivity;
+import cn.ucai.fulicenters.bean.Result;
 import cn.ucai.fulicenters.bean.User;
+import cn.ucai.fulicenters.dao.UserDao;
+import cn.ucai.fulicenters.net.NetDao;
+import cn.ucai.fulicenters.net.OkHttpUtils;
 import cn.ucai.fulicenters.utils.ImageLoader;
 import cn.ucai.fulicenters.utils.MFGT;
+import cn.ucai.fulicenters.utils.ResultUtils;
 
 /**
  * Created by bk124 on 2016/10/25.
@@ -56,6 +61,7 @@ public class PersonalCenterFragment extends BaseFragment {
         }else {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserAvatar);
             mTvUserName.setText(user.getMuserNick());
+            syncUserInfo();
         }
     }
 
@@ -76,5 +82,33 @@ public class PersonalCenterFragment extends BaseFragment {
     @OnClick({R.id.tv_center_settings,R.id.center_user_info})
     public void gotoSettings() {
         MFGT.gotoSettings(mContext);
+    }
+
+    private void syncUserInfo(){
+        NetDao.syncUserInfo(mContext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Result result = ResultUtils.getResultFromJson(s, User.class);
+                if(result!=null){
+                    User u = (User) result.getRetData();
+                    if(!user.equals(u)){
+                        UserDao dao = new UserDao(mContext);
+                        boolean b = dao.saveUser(u);
+                        if(b){
+                            FuLiCenterApplication.setUser(u);
+                            user = u;
+                            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), mContext, mIvUserAvatar);
+                            mTvUserName.setText(user.getMuserNick());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+
     }
 }
