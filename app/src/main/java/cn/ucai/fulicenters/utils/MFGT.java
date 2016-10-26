@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.activity.BoutiqueChildActivity;
+import cn.ucai.fulicenters.activity.CollectsActivity;
 import cn.ucai.fulicenters.activity.GoodsDeatilActivity;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.activity.LoginActivity;
@@ -72,6 +73,10 @@ public class MFGT {
 
     public static void gotoUpdateNick(Activity context){
         startActivityForResult(context,new Intent(context, UpdateNickActivity.class),I.REQUEST_CODE_NICK);
+    }
+
+    public static void gotoCollects(Activity context){
+        startActivity(context, CollectsActivity.class);
     }
 }
 
