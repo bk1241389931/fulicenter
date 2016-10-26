@@ -34,4 +34,6 @@
     <string name="login_fail_error_password">login fail,error password</string>
     <string name="user_database_error">user_database_error</string>
     <string name="collect_title">collects</string>
+    <string name="delete_collect_fail">delete collect fail</string>
+
 </resources>
