@@ -14,12 +14,14 @@ import butterknife.OnClick;
 import cn.ucai.fulicenters.FuLiCenterApplication;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.activity.MainActivity;
+import cn.ucai.fulicenters.bean.MessageBean;
 import cn.ucai.fulicenters.bean.Result;
 import cn.ucai.fulicenters.bean.User;
 import cn.ucai.fulicenters.dao.UserDao;
 import cn.ucai.fulicenters.net.NetDao;
 import cn.ucai.fulicenters.net.OkHttpUtils;
 import cn.ucai.fulicenters.utils.ImageLoader;
+import cn.ucai.fulicenters.utils.L;
 import cn.ucai.fulicenters.utils.MFGT;
 import cn.ucai.fulicenters.utils.ResultUtils;
 
@@ -27,6 +29,7 @@ import cn.ucai.fulicenters.utils.ResultUtils;
  * Created by bk124 on 2016/10/25.
  */
 public class PersonalCenterFragment extends BaseFragment {
+    private static final String TAG = PersonalCenterFragment.class.getSimpleName();
 
     @BindView(R.id.tv_center_settings)
     TextView mTvCenterSettings;
@@ -34,6 +37,8 @@ public class PersonalCenterFragment extends BaseFragment {
     ImageView mIvUserAvatar;
     @BindView(R.id.tv_user_name)
     TextView mTvUserName;
+    @BindView(R.id.tv_collect_count)
+    TextView mTvCollectCount;
 
     MainActivity mContext;
     User user=null;
@@ -61,7 +66,7 @@ public class PersonalCenterFragment extends BaseFragment {
         }else {
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserAvatar);
             mTvUserName.setText(user.getMuserNick());
-            syncUserInfo();
+
         }
     }
 
@@ -76,6 +81,8 @@ public class PersonalCenterFragment extends BaseFragment {
         if (user!=null){
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserAvatar);
             mTvUserName.setText(user.getMuserNick());
+            syncUserInfo();
+            syncCollectsCount();
         }
     }
 
@@ -110,5 +117,24 @@ public class PersonalCenterFragment extends BaseFragment {
             }
         });
 
+    }
+
+    private void syncCollectsCount() {
+        NetDao.getCollectsCount(mContext, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result != null && result.isSuccess()) {
+                    mTvCollectCount.setText(result.getMsg());
+                }else{
+                    mTvCollectCount.setText(String.valueOf(0));
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                mTvCollectCount.setText(String.valueOf(0));
+                L.e(TAG,"error="+error);
+            }
+        });
     }
 }
