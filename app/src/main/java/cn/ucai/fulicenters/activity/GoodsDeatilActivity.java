@@ -3,16 +3,20 @@ package cn.ucai.fulicenters.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.ucai.fulicenters.FuLiCenterApplication;
 import cn.ucai.fulicenters.I;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.bean.AlbumsBean;
 import cn.ucai.fulicenters.bean.GoodsDetailsBean;
+import cn.ucai.fulicenters.bean.MessageBean;
+import cn.ucai.fulicenters.bean.User;
 import cn.ucai.fulicenters.net.NetDao;
 import cn.ucai.fulicenters.net.OkHttpUtils;
 import cn.ucai.fulicenters.utils.CommonUtils;
@@ -42,6 +46,11 @@ public class GoodsDeatilActivity extends BaseActivity {
 
     int goodsId;
     GoodsDeatilActivity mContext;
+    private boolean collected;
+    boolean isCollected=false;
+    @BindView(R.id.iv_good_collect)
+    ImageView mIvGoodCollect;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +129,51 @@ public class GoodsDeatilActivity extends BaseActivity {
     protected void initView() {
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isCollected();
+    }
+
     @OnClick(R.id.backClickArea)
     public void onBackClick(){
         MFGT.finish(this);
     }
     public void onback(View v){
         MFGT.finish(this);
+    }
+
+
+    private void isCollected() {
+        User user = FuLiCenterApplication.getUser();
+        if (user != null) {
+            NetDao.isColected(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null && result.isSuccess()) {
+                        isCollected = true;
+                    }else{
+                        isCollected = false;
+                    }
+                    updateGoodsCollectStatus();
+                }
+
+                @Override
+                public void onError(String error) {
+                    isCollected = false;
+                    updateGoodsCollectStatus();
+                }
+            });
+        }
+        updateGoodsCollectStatus();
+    }
+
+    private void updateGoodsCollectStatus() {
+        if (isCollected) {
+            mIvGoodCollect.setImageResource(R.mipmap.bg_collect_out);
+        } else {
+            mIvGoodCollect.setImageResource(R.mipmap.bg_collect_in);
+        }
     }
 }
