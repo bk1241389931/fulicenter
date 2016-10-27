@@ -19,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenters.R;
 import cn.ucai.fulicenters.bean.CartBean;
+import cn.ucai.fulicenters.bean.GoodsDetailsBean;
+import cn.ucai.fulicenters.utils.ImageLoader;
 
 public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
     Context mContext;
@@ -45,6 +47,15 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
 //        holder.mTvBoutiqueName.setText(boutiqueBean.getName());
 //        holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
 //        holder.mLayoutBoutiqueItem.setTag(boutiqueBean);
+
+        GoodsDetailsBean goods = (GoodsDetailsBean) cartBean.getGoods();
+        if(goods!=null) {
+            ImageLoader.downloadImg(mContext, holder.mIvCartThumb, goods.getGoodsThumb());
+            holder.mTvCartGoodName.setText(goods.getGoodsName());
+            holder.mTvCartPrice.setText(goods.getCurrencyPrice());
+        }
+        holder.mTvCartCount.setText("("+cartBean.getCount()+")");
+        holder.mCbCartSelected.setChecked(false);
     }
 
     @Override
